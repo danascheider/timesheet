@@ -1,6 +1,30 @@
 = timesheet
 
-Describe your project here
+************************
+*** WORK IN PROGRESS ***
+************************
+
+DESCRIPTION:
+
+Simple command suite for tracking working hours.
+
+FEATURES (v. 1.0):
+
+* in and out commands track comings and goings
+* Timesheet records when clocked in or out
+* Manual option allows post facto clock-ins/-outs for the chronically forgetful
+* Note option allows user to enter comments, possibly to include clients to 
+  bill, projects worked on, etc.
+
+TECHNICAL DETAILS:
+
+* Written in Ruby v. 1.9.3
+* Developed under Fedora 20
+
+FORTHCOMING FEATURES (future verisons)
+
+* Built-in functionality to associate hours with particular clients/projects
+* Automatic report generation to present records in visual/graphical format
 
 :include:timesheet.rdoc
 
