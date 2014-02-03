@@ -1,0 +1,5 @@
+= timesheet
+
+Generate this with
+    timesheet rdoc
+After you have described your command line interface
