@@ -25,6 +25,8 @@ FORTHCOMING FEATURES (future verisons)
 
 * Built-in functionality to associate hours with particular clients/projects
 * Automatic report generation to present records in visual/graphical format
+* Optional automatic out if computer shut down or put to sleep
+* Alert if user clocks in when already in/clocks out when already out
 
 :include:timesheet.rdoc
 
