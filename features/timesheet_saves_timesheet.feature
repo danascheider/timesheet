@@ -1,4 +1,5 @@
-# Check how it works
+# Timesheet should create and maintain a directory called ~/.timesheet
+# with the user's ins and outs recorded in a file called ~/.timesheet/timesheet
 
 Feature: saves timesheet
   In order to keep a record of my hours
