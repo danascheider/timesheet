@@ -7,8 +7,7 @@ Feature: saves timesheet
   I want a timesheet saved on my computer
 
   Scenario: generate timesheet file and directory
-    Given there is no directory called .timesheet
+    Given there is no directory called .timesheet in my home directory
     When I clock in
-    Then I should have a directory called .timesheet
-    And there should be a file called timesheet in .timesheet
-    And the current time and date should be recorded in .timesheet/timesheetl 
+    Then a directory called ~/.timesheet should be created
+    And the time should be logged in a file called ~/.timesheet/timesheet
