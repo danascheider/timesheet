@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'gli'
+require 'etc'
 begin # XXX: Remove this begin/rescue before distributing your app
 require 'timesheet'
 rescue LoadError
@@ -19,9 +20,9 @@ desc 'Describe some switch here'
 switch [:s,:switch]
 
 desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+default_value "#{Etc.getlogin()}"
+arg_name 'USER'
+flag [:u,:user]
 
 desc 'Describe in here'
 arg_name 'Describe arguments to in here'
