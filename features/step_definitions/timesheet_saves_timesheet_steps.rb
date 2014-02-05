@@ -10,7 +10,7 @@ When /^I clock in$/ do
   @timesheet.in
 end
 
-Then /^a directory called "\S*\/\.?\w+\/?" should be created$/ do |name|
+Then "a directory called $directory should be created" do |directory|
   Dir.mkdir(name)
 end
 
