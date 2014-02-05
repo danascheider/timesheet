@@ -1,4 +1,4 @@
-Given /^there is no directory called "\S*\/\.?\w+\/?"$/ do |name|
+Given "there is no directory called $name" do |name|
   File.directory?(name) == nil
 end
 
