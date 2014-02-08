@@ -38,3 +38,22 @@ Feature: timesheet saves timesheet
     When I clock out
     Then I should see a message indicating I am not clocked in
     And I should be asked if I want to continue
+
+  Scenario: clock out when there is a timesheet directory but no file
+    Given there is a directory called "~/.timesheet"
+    But there is no file called "~/.timesheet/timesheet"
+    When I clock out
+    Then I should see a message indicating I do not have an open timesheet
+    And I should be asked if I want to continue
+
+  Scenario: clock out when there is no timesheet directory
+    Given there is no directory called "~/.timesheet"
+    When I clock out
+    Then I should see a message indicating I do not have an open timesheet
+    And I should be asked if I want to continue
+
+  Scenario: continue with clock-out
+    Given I have clocked out when I wasn't clocked in
+    And I have been asked whether I want to continue
+    When I answer yes
+    Then my time out should be logged in the file "~/.timesheet/timesheet"
