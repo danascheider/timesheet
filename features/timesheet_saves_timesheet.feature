@@ -16,7 +16,7 @@ Feature: timesheet saves timesheet
 
   Scenario: no timesheet file
     Given there is a directory called "~/.timesheet"
-    But there is no timesheet file
+    But there is no file called "~/.timesheet/timesheet"
     When I clock in
     Then a file called "~/.timesheet/timesheet" should be created
     And the time should be appended to the file "~/.timesheet/timesheet" 
