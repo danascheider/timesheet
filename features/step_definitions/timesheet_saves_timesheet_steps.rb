@@ -17,6 +17,4 @@ And /^the time should be logged in a file called (.*)$/ do |file|
   raise("Error: No such file") unless File.exists?(file)
   @arr = IO.readlines(file)
   @arr[-1].should == "dscheider in  => 2014-02-07 17:27:00 -0800"
-  # The file ~/.timesheet/timesheet should exist and the last line should be 
-  # dscheider in  => 2014-02-07 17:27:00 -0800
 end
