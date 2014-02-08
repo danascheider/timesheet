@@ -31,8 +31,8 @@ command :in do |c|
   c.switch :s
 
   c.desc 'Describe a flag to in'
-  c.default_value 'default'
-  c.flag :f
+  c.default_value "#{Time.now}"
+  c.flag [:t, :time]
   c.action do |global_options,options,args|
 
     # Your command logic here
