@@ -6,12 +6,11 @@ Given /^there is no directory called (.*)$/ do |name|
 end
 
 When /^I clock in$/ do 
-  @timesheet = Log.new
-  @timesheet.in
+  @action = `bundle exec bin/timesheet in`
 end
 
 Then /^a directory called (.*) should be created$/ do |directory|
-  Dir.mkdir(directory)
+  File.exist?(directory)
 end
 
 And /^the time should be logged in a file called "\S*\/\.?\w+\/\S+"$/ do |name|
