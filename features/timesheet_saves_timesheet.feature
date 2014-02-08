@@ -7,14 +7,34 @@ Feature: timesheet saves timesheet
   As an hourly consultant
   I want a timesheet saved on my computer
 
-  Scenario: timesheet creates timesheet
+  Scenario: no timesheet directory
     Given there is no directory called "~/.timesheet"
     When I clock in
     Then a directory called "~/.timesheet" should be created
-    And the time should be logged in a file called "~/.timesheet/timesheet"
+    And a file called "~/.timesheet/timesheet" should be created
+    And the time should be appended to the file "~/.timesheet/timesheet"
 
-  Scenario: timesheet posts log entries to timesheet
+  Scenario: no timesheet file
+    Given there is a directory called "~/.timesheet"
+    But there is no timesheet file
+    When I clock in
+    Then a file called "~/.timesheet/timesheet" should be created
+    And the time should be appended to the file "~/.timesheet/timesheet" 
+
+  Scenario: existing timesheet file and directory
     Given there is a directory called "~/.timesheet"
     And there is a file called "~/.timesheet/timesheet"
     When I clock in
-    Then my time in should be appended to the timesheet file
+    Then my time in should be appended to the file "~/.timesheet/timesheet"
+
+  Scenario: clock out
+    Given there is a file called "~/timesheet/timesheet"
+    When I clock out
+    Then my time out should be appended to the file "~/.timesheet/timesheet"
+
+  Scenario: clock out when not clocked in on timesheet
+    Given there is a file called "~/.timesheet/timesheet"
+    And the most recent entry in the file is a clock-out
+    When I clock out
+    Then I should see a message indicating I am not clocked in
+    And I should be asked if I want to continue
