@@ -30,15 +30,17 @@ command :in do |c|
   c.desc 'Describe a switch to in'
   c.switch :s
 
-  c.desc 'Describe a flag to in'
+  c.desc 'Time in'
   c.default_value "#{Time.now}"
   c.flag [:t, :time]
   c.action do |global_options,options,args|
+    timesheet_path = "/home/#{global_options[:u]}/.timesheet"
+    Dir.mkdir(timesheet_path) unless File.directory?(timesheet_path)
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
+    timesheet_file = timesheet_path + "/timesheet"
+    File.open(timesheet_file, "w+") do |file|
+      file.puts "#{global_options[:user]} in  => #{options[:time]}"
+    end
 
     puts "in command ran"
   end
