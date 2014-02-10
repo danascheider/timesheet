@@ -1,5 +1,4 @@
 require 'log'
-require 'etc'
 
 Given /^there is (a|no) directory called (.*)$/ do |article,dirname|
   if article == "a" then File.directory?(dirname);
