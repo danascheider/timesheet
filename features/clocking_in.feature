@@ -13,7 +13,10 @@ Feature: Clocking in
 
   Scenario: user is in
 
+    A user who has forgotten to clock out should see a message that
+    they aren't clocked out and asking them how they want to proceed
+
     Given I am currently in
     When I clock in
-    Then I should see a message notifying me I am already clocked in
-    And I should be asked if I want to continue, clock out, or exit
+    Then I should see a message that I am already clocked in
+    And I should be asked what I want to do next
