@@ -1,7 +1,7 @@
 require 'log'
 require 'etc'
 
-Given /^there is no directory called (.*)$/ do |article,dirname|
+Given /^there is (a|no) directory called (.*)$/ do |article,dirname|
   if article == "a" then File.directory?(dirname);
   else !File.directory?(dirname)
 end
@@ -15,7 +15,7 @@ Then /^a directory called (.*) should be created$/ do |directory|
 end
 
 And /^a file called (.*) should be created$/ do |file|
-  #
+  pending("How to simulate file (or directory) being created?")
 end
 
 And /^the time should be appended to the file (.*)$/ do |file|
