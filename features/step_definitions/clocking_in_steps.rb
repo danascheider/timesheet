@@ -15,6 +15,6 @@ Then /^I should see a message that I am already (clocked)? (in|out)$/ do |status
   # TODO: code goes here
 end
 
-And /^I should be asked if what I want to do next$/ do
+And /^I should be asked what I want to do next$/ do
   # TODO: code goes here
 end
