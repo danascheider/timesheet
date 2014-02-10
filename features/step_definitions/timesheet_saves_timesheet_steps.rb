@@ -2,7 +2,7 @@ require 'log'
 
 Given /^there is (a|no) directory called (.*)$/ do |article,dirname|
   if article == "a" then File.directory?(dirname);
-  else !File.directory?(dirname)
+  else !File.directory?(dirname); end
 end
 
 When /^I clock in$/ do 
