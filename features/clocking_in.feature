@@ -1,10 +1,10 @@
 Feature: Clocking in
 
-  Scenario: user is out
+  As an hourly consultant
+  I want to mark the time I start work
+  So that I can calculate my hours and bill them to my clients.
 
-    As an hourly consultant
-    I want to mark the time I start work
-    So that I can calculate my hours and bill them to my clients.
+  Scenario: user is out
 
     Given I am currently out
     When I clock in
