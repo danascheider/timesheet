@@ -1,8 +1,9 @@
 Feature: Clocking in
 
-  As an hourly consultant
-  I want to mark the time I start work
-  So that I can calculate my hours and bill them to my clients.
+  Users are consultants who use Timesheet to log hours working for
+  control or billing purposes. When a user clocks in, an entry is
+  made in a log file indicating his/her username and the time and
+  date entered
 
   Scenario: user is out
 
@@ -11,10 +12,6 @@ Feature: Clocking in
     Then my username and time in should be posted on my timesheet
 
   Scenario: user is in
-
-    If I haven't clocked out from my last session,
-    I want to be notified when I try to clock in again
-    So I can correct my mistake
 
     Given I am currently in
     When I clock in
