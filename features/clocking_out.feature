@@ -3,6 +3,9 @@ Feature:
   After a clocked-in and has finished working, they need to clock out in order
   to keep an accurate record of their hours.
 
+  Background: 
+    Given I am a timesheet user
+
   Scenario: user is in
 
     The basic scenario clocks out a user whose latest timesheet entry is 'in'

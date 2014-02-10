@@ -1,6 +1,9 @@
+Given /^I am a Timesheet user$/ do 
+  @user = User.new('test_user')
+end
 
 Given /^I am currently (in|out)$/ do |status|
-  # TODO: code goes here
+  @user.status == status
 end
 
 When /^I clock (in|out)$/ do |action|

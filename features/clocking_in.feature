@@ -5,6 +5,9 @@ Feature: Clocking in
   made in a log file indicating his/her username and the time and
   date entered
 
+  Background:
+    Given I am a Timesheet user
+
   Scenario: user is out
 
     Given I am currently out
