@@ -5,10 +5,6 @@ Given /^there is (a|no) directory called (.*)$/ do |article,dirname|
   else !File.directory?(dirname); end
 end
 
-When /^I clock in$/ do 
-  @action = `bundle exec bin/timesheet -u dscheider in -t '2014-02-07 17:27:00 -0800'`
-end
-
 Then /^a directory called (.*) should be created$/ do |directory|
   File.exist?(directory)
 end
