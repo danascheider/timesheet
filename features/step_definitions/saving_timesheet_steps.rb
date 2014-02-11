@@ -1,4 +1,5 @@
 require 'log'
+require 'user'
 
 Given /^there is (a|no) directory called (.*)$/ do |article,dirname|
   if article == "a" then File.directory?(dirname);
@@ -10,7 +11,7 @@ Then /^a directory called (.*) should be created$/ do |directory|
 end
 
 And /^a file called (.*) should be created$/ do |file|
-  pending("How to simulate file (or directory) being created?")
+  File.open("#{file}", "a+")
 end
 
 And /^the time should be appended to the file (.*)$/ do |file|
