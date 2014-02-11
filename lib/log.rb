@@ -1,19 +1,25 @@
-require 'etc'
+require_relative 'user'
 
 class Log 
 
-  def initialize(user=Etc.getlogin)
+  attr_reader :username
+  attr_reader :file 
+  attr_reader :dir
+
+  def initialize(user=User.new)
     @user = user
-    @dir = Dir.mkdir(dirname="/home/#{user}/.timesheet/")
-    @file = File.open((dirname + "timesheet"), "a+")
-    @file.puts "TIMESHEET FOR #{@user.upcase}" if File.zero?(@file)
+    @username = user.name
+    @dir = if File.exist?(dirname="/home/#{username}/.timesheet/") then dirname;
+    else Dir.mkdir(dirname); end
+    @file = if File.exists?("#{dirname}timesheet") then "#{dirname}timesheet";
+    else File.open(("#{dirname}timesheet"), "a+") { |file| file.write("TIMESHEET FOR #{@username.upcase}\n") }; end
   end
 
   def in(time=Time.now)
-    @file.puts "#{@user} in  => #{time}"
+    @file.puts "#{@username} in  => #{time}"
   end
 
   def out(time=Time.now)
-    @file.puts "#{@user} out => #{time}"
+    @file.puts "#{@username} out => #{time}"
   end
 end
