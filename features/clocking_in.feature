@@ -14,9 +14,8 @@ Feature: Clocking in and out
 
   Scenario: Time in differs from present time
 
-    When I clock in
-    And I specify a time using the -t option
-    Then that time should be posted to my timesheet
+    When I clock in with the time set to 2014-02-15 11:30:00 -0800
+    Then the time in on my timesheet should be 2014-02-15 11:30:00 -0800
 
   Scenario: User clocks out
 
