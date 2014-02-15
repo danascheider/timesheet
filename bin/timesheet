@@ -24,6 +24,23 @@ default_value "#{Etc.getlogin()}"
 arg_name 'USER'
 flag [:u,:user]
 
+desc 'Path of timesheet directory'
+default_value nil
+arg_name 'PATH'
+flag [:path]
+
+pre do |global,command,options,args|
+  @user = global[:user]
+  @path = global[:path] || "/home/#{@user}/.timesheet"
+  @file = "#{@path}/timesheet"
+  FileUtils.mkdir(@path) unless File.directory?(@path)
+  unless File.exists?(@file)
+    File.new(@file,"a+")
+    @file.puts "TIMESHEET FOR #{@user.upcase}"
+  end
+  true
+end
+
 desc 'Clock in when you start working'
 arg_name 'Describe arguments to in here'
 command :in do |c|
@@ -34,12 +51,8 @@ command :in do |c|
   c.default_value "#{Time.now}"
   c.flag [:t, :time]
   c.action do |global_options,options,args|
-    timesheet_path = "/home/#{global_options[:u]}/.timesheet"
-    Dir.mkdir(timesheet_path) unless File.directory?(timesheet_path)
-
-    timesheet_file = timesheet_path + "/timesheet"
-    File.open(timesheet_file, "a+") do |file|
-      file.puts "#{global_options[:user]} in  => #{options[:time]}"
+    File.open(@file, "a+") do |file|
+      file.puts "#{@user} in  => #{options[:time]}"
     end
 
     puts "in command ran"
@@ -53,25 +66,12 @@ command :out do |c|
   c.default_value "#{Time.now}"
   c.flag [:t, :time]
   c.action do |global_options,options,args|
-    timesheet_path = "/home/#{global_options[:u]}/.timesheet"
-    Dir.mkdir(timesheet_path) unless File.directory?(timesheet_path)
-
-    timesheet_file = timesheet_path + "/timesheet"
-    File.open(timesheet_file, "a+") do |file|
-      file.puts "#{global_options[:user]} out => #{options[:time]}"
+    File.open(@file, "a+") do |file|
+      file.puts "#{@user} out => #{options[:time]}"
     end
 
     puts "out command ran"
   end
-end
-
-pre do |global,command,options,args|
-  # Pre logic here
-  # Return true to proceed; false to abort and not call the
-  # chosen command
-  # Use skips_pre before a command to skip this block
-  # on that command only
-  true
 end
 
 post do |global,command,options,args|
