@@ -4,6 +4,12 @@
 *** WORK IN PROGRESS ***
 ************************
 
+PREFACE:
+
+Note that this README pertains to v. 1.0, which has not been released.
+The current timesheet version is 0.1. This will be updated as new
+versions are made available.
+
 DESCRIPTION:
 
 Simple command suite for tracking working hours.
