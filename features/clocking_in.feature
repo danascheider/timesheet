@@ -21,3 +21,8 @@ Feature: Clocking in and out
 
     When I clock out
     Then my username and time out should be posted to my timesheet
+
+  Scenario: Time out differs from present time
+
+    When I clock out with the time set to 2013-11-27 12:37:00 -0800
+    Then the time out on my timesheet should be 2013-11-27 12:37:00 -0800
