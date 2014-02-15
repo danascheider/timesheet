@@ -6,12 +6,8 @@ Given /^I am a timesheet user$/ do
   @username = @user.name
 end
 
-When /^I clock in$/ do 
-  `bundle exec bin/timesheet in`
-end
-
-When /^I clock out$/ do 
-  `bundle exec bin/timesheet out`
+When /^I clock (in|out)$/ do |status|
+  `bundle exec bin/timesheet #{status}`
 end
 
 Then /^my username and time in should be posted to my timesheet$/ do 
