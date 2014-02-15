@@ -46,10 +46,21 @@ command :in do |c|
   end
 end
 
-desc 'Describe out here'
+desc 'Clock out when you finish working'
 arg_name 'Describe arguments to out here'
 command :out do |c|
+  c.desc 'Time out'
+  c.default_value "#{Time.now}"
+  c.flag [:t, :time]
   c.action do |global_options,options,args|
+    timesheet_path = "/home/#{global_options[:u]}/.timesheet"
+    Dir.mkdir(timesheet) unless File.directory?(timesheet_path)
+
+    timesheet_file = timesheet_path + "/timesheet"
+    File.open(timesheet_file, "a+") do |file|
+      file.puts "#{global_options[:user]} out => #{options[:time]}"
+    end
+
     puts "out command ran"
   end
 end
