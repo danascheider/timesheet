@@ -19,7 +19,7 @@ version Timesheet::VERSION
 desc 'Describe some switch here'
 switch [:s,:switch]
 
-desc 'Describe some flag here'
+desc 'Username of active user'
 default_value "#{Etc.getlogin()}"
 arg_name 'USER'
 flag [:u,:user]
