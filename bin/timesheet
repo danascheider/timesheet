@@ -25,14 +25,13 @@ arg_name 'USER'
 flag [:u,:user]
 
 desc 'Path of timesheet directory'
-default_value nil
+default_value ENV["HOME"] + "/.timesheet"
 arg_name 'PATH'
 flag [:path]
 
 pre do |global,command,options,args|
   @user = global[:user]
-  @path = global[:path] || "/home/#{@user}/.timesheet"
-  @file = "#{@path}/timesheet"
+  @file = "#{@path = global[:path]}/timesheet"
   FileUtils.mkdir(@path) unless File.directory?(@path)
   unless File.exists?(@file)
     File.new(@file,"a+")
