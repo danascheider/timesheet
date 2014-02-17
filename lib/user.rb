@@ -18,7 +18,7 @@ class User
   end
 
   def mklog(username=@name,log_path=nil)
-    @log_path = log_path || "/home/#{username}/.timesheet"
+    @log_path = log_path || "#{ENV['HOME']}/.timesheet"
     File.exist? @log_path || Dir.mkdir(@log_path)
     if File.exists?(@log_file = "#{@log_path}/timesheet") 
       adopt(@log_file);
