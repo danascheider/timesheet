@@ -25,3 +25,13 @@ timesheet in --time "2014-02-18 15:22:31 -0800"
 
 ### View timesheet
 Open `~/.timesheet/timesheet`
+
+Developing
+==========
+
+Timesheet is tested with cucumber. Run tests in the root directory:
+```
+cucumber
+```
+
+Note that these tests currently will write to your real timesheet in ~/.timesheet/timesheet
