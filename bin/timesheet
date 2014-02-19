@@ -1,23 +1,12 @@
 #!/usr/bin/env ruby
 require 'gli'
 require 'etc'
-begin # XXX: Remove this begin/rescue before distributing your app
 require 'timesheet'
-rescue LoadError
-  STDERR.puts "In development, you need to use `bundle exec bin/timesheet` to run your app"
-  STDERR.puts "At install-time, RubyGems will make sure lib, etc. are in the load path"
-  STDERR.puts "Feel free to remove this message from bin/timesheet now"
-  exit 64
-end
-
 include GLI::App
 
 program_desc 'Simple app for tracking working time'
 
 version Timesheet::VERSION
-
-desc 'Describe some switch here'
-switch [:s,:switch]
 
 desc 'Username of active user'
 default_value "#{Etc.getlogin()}"
@@ -43,18 +32,15 @@ end
 desc 'Clock in when you start working'
 arg_name 'Describe arguments to in here'
 command :in do |c|
-  c.desc 'Describe a switch to in'
-  c.switch :s
-
   c.desc 'Time in'
   c.default_value "#{Time.now}"
   c.flag [:t, :time]
   c.action do |global_options,options,args|
     File.open(@file, "a+") do |file|
-      file.puts "#{@user} in  => #{options[:time]}"
+      timesheet_entry = "#{@user} in  => #{options[:time]}"
+      file.puts timesheet_entry
+      STDOUT.puts "Clocked in with entry: #{timesheet_entry}"
     end
-
-    puts "in command ran"
   end
 end
 
@@ -66,23 +52,11 @@ command :out do |c|
   c.flag [:t, :time]
   c.action do |global_options,options,args|
     File.open(@file, "a+") do |file|
-      file.puts "#{@user} out => #{options[:time]}"
+      timesheet_entry = "#{@user} out => #{options[:time]}"
+      file.puts timesheet_entry
+      STDOUT.puts "Clocked out with entry: #{timesheet_entry}"
     end
-
-    puts "out command ran"
   end
-end
-
-post do |global,command,options,args|
-  # Post logic here
-  # Use skips_post before a command to skip this
-  # block on that command only
-end
-
-on_error do |exception|
-  # Error logic here
-  # return false to skip default error handling
-  true
 end
 
 exit run(ARGV)
