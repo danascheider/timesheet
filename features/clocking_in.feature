@@ -1,25 +1,28 @@
-Feature: Clocking in
-
-  Users are consultants who use Timesheet to log hours working for
-  control or billing purposes. When a user clocks in, an entry is
-  made in a log file indicating his/her username and the time and
-  date entered
+Feature: Clocking in and out
+  
+  Consultants tracking their working time enter their time in on
+  their timesheet
 
   Background:
-    Given I am a Timesheet user
 
-  Scenario: user is out
+    Given I am a timesheet user
 
-    Given I am currently out
+  Scenario: User clocks in
+
     When I clock in
-    Then my username and time in should be posted on my timesheet
+    Then my username and time in should be posted to my timesheet
 
-  Scenario: user is in
+  Scenario: Time in differs from present time
 
-    A user who has forgotten to clock out should see a message that
-    they aren't clocked out and asking them how they want to proceed
+    When I clock in with the time set to 2014-02-15 11:30:00 -0800
+    Then the time in on my timesheet should be 2014-02-15 11:30:00 -0800
 
-    Given I am currently in
-    When I clock in
-    Then I should see a message that I am already clocked in
-    And I should be asked what I want to do next
+  Scenario: User clocks out
+
+    When I clock out
+    Then my username and time out should be posted to my timesheet
+
+  Scenario: Time out differs from present time
+
+    When I clock out with the time set to 2013-11-27 12:37:00 -0800
+    Then the time out on my timesheet should be 2013-11-27 12:37:00 -0800

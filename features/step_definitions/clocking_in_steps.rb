@@ -1,27 +1,29 @@
 require 'log'
 require 'user'
 
-Given /^I am a Timesheet user$/ do 
+Given /^I am a timesheet user$/ do 
   @user = User.new
   @username = @user.name
 end
 
-Given /^I am currently (in|out)$/ do |status|
-  @user.status == status
+When /^I clock (in|out)$/ do |status|
+  `bundle exec bin/timesheet #{status}`
 end
 
-When /^I clock (in|out)$/ do |action|
-  `bundle exec bin/timesheet -u "#{@username} #{action}"`
+When /^I clock (in|out) with the time set to (\d{4}(\-\d\d){2} (\d{2}:){2}\d{2} \-\d{4})$/ do |status,date,time,zone|
+  `bundle exec bin/timesheet #{status} -t "#{date} #{time} #{zone}"`
 end
 
-Then /^my username and time (in|out) should be posted on my timesheet$/ do |status|
-  @user.mklog(@username)
+Then /^the time (in|out) on my timesheet should be (\d{4}(\-\d\d){2} (\d{2}:){2}\d{2} \-\d{4})$/ do |status,date,time,zone|
+  File.open("#{ENV['HOME']}/.timesheet/timesheet",'r+') do |file|
+    IO.readlines(file)[-1].should =~ /#{status}.*#{date} #{time} #{zone}\n?$/
+  end
 end
 
-Then /^I should see a message that I am already clocked (in|out)$/ do |status|
-  STDOUT.puts "Looks like you are already #{status}!"
-end
-
-And /^I should be asked what I want to do next$/ do
-  pending("Not sure how to handle options on this one")
+Then /^my username and time (in|out) should be posted to my timesheet$/ do |status|
+  # Keep columns the same width for in and out statuses
+  if status == "in" then status = "in "; end
+  File.open("#{ENV['HOME']}/.timesheet/timesheet",'r+') do |file|
+    IO.readlines(file)[-1].should eql "#{@username} #{status} => #{Time.now}\n"
+  end
 end
